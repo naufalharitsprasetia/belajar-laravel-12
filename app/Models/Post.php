@@ -14,8 +14,14 @@ class Post extends Model
     protected $guarded = [
         'id',
     ];
+    protected $with = ['category', 'author'];
+    
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }
