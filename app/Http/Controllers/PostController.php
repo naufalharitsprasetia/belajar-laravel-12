@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -34,7 +36,34 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'title' => 'required|unique:posts|min:4|max:255|string',
+        //     'body' => 'required|min:50|max:700|string',
+        //     'category_id' => 'required',
+        // ]);
+        Validator::make($request->all(), [
+            'title' => 'required|unique:posts|min:4|max:255|string',
+            'body' => 'required|min:50|max:700|string',
+            'category_id' => 'required',
+        ], [
+            'title.required' => 'Field :attribute Wajib Di isi!',
+            'body.required' => 'Gak Boleh Kosong !',
+            'category_id.required' => 'Pilih salah satu category !',
+        ], [
+            'title' => 'judul',
+            'category_id' => 'kategori',
+            'body' => 'isi konten'
+        ])->validate();
+
+
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'slug' => Str::slug($request->title),
+            'category_id' => $request->category_id,
+            'author_id' => Auth::user()->id,
+        ]);
+        return redirect('/dashboard')->with('success', 'SUCCESS, Berhasil menambahkan post baru!');
     }
 
     /**
@@ -64,8 +93,9 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('/dashboard')->with('success', 'Berhasil menghapus postingan!');
     }
 }
