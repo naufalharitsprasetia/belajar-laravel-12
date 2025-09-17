@@ -43,7 +43,7 @@ class PostController extends Controller
         // ]);
         Validator::make($request->all(), [
             'title' => 'required|unique:posts|min:4|max:255|string',
-            'body' => 'required|min:50|max:700|string',
+            'body' => 'required|min:20|max:700|string',
             'category_id' => 'required',
         ], [
             'title.required' => 'Field :attribute Wajib Di isi!',
@@ -90,7 +90,7 @@ class PostController extends Controller
         // Validation
         $request->validate([
             'title' => 'required|min:4|max:255|string|unique:posts, title' . $post->id,
-            'body' => 'required|min:50|max:700|string',
+            'body' => 'required|min:20|max:700|string',
             'category_id' => 'required',
         ]);
         // Update Post

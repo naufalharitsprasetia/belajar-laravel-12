@@ -47,7 +47,7 @@
                 </div>
                 <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
                         href="/posts/{{ $post['slug'] }}">{{$post->title}}</a></h2>
-                <p class="mb-5 font-light text-gray-500 dark:text-gray-400 line-clamp-3">{{ $post->body }}</p>
+                <p class="mb-5 font-light text-gray-500 dark:text-gray-400 line-clamp-3">{!! $post->body !!}</p>
                 <div class="flex justify-between items-center">
                     <a href="/posts?author={{ $post->author->username }}">
                         <div class="flex items-center space-x-4">
