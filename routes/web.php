@@ -38,6 +38,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard', [PostController::class, 'store'])->name('dashboard.store');
     Route::get('/dashboard/create', [PostController::class, 'create'])->name('dashboard.create');
     Route::delete('/dashboard/{post:slug}', [PostController::class, 'destroy'])->name('dashboard.destroy');
+    Route::get('/dashboard/{post:slug}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
+    Route::patch('/dashboard/{post:slug}', [PostController::class, 'update'])->name('dashboard.update');
     Route::get('/dashboard/{post:slug}', [PostController::class, 'show'])->name('dashboard.show');
 });
 
@@ -45,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/upload', [ProfileController::class, 'upload']);
 });
 
 require __DIR__ . '/auth.php';

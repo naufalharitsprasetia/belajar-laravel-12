@@ -24,7 +24,8 @@ URL: https://flowbite.com/docs/components/typography/
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                             <img class="mr-4 w-16 h-16 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Jese Leos">
+                                src="{{ $post->author->avatar ? asset($post->author->avatar) : asset('img/avt.jpg') }}"
+                                alt="{{ $post->author->name }}">
                             <div>
                                 <a href="/posts?author={{ $post->author->username }}" rel="author"
                                     class="text-xl font-bold text-gray-900 dark:text-white">{{$post->author->name}}</a>
